@@ -11,15 +11,18 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
+        'bg',
         'title',
         'description',
         'photo',
+        'video',
         'name',
         'nim',
         'profile',
         'ig',
         'wa',
         'qr',
+        'highlight',
         'category_id'
     ];
 

@@ -35,7 +35,10 @@ class GaleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Galery::create([
+            'image' => $request->file('image')->store('galeryimage'),
+            'project_id' => $request->project_id
+        ]);
     }
 
     /**
@@ -69,7 +72,13 @@ class GaleryController extends Controller
      */
     public function update(Request $request, Galery $galery)
     {
-        //
+        if($request->file('image')) {
+            unlink('storage/'.$galery->image);
+            $galery->update([
+                'image' => $request->file('image')->store('galeryimage'),
+                'project_id' => $request->project_id
+            ]);
+        }
     }
 
     /**
@@ -80,6 +89,7 @@ class GaleryController extends Controller
      */
     public function destroy(Galery $galery)
     {
-        //
+        unlink('storage/'.$galery->image);
+        $galery->delete();
     }
 }
